@@ -1,1 +1,223 @@
 
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العد التنازلي للخدمة العسكرية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(red 0%, red 100%);
+            position: relative;
+            margin: 20px auto;
+        }
+
+        .circle .inside {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: white;
+            line-height: 120px;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #days-left {
+            font-size: xxx-large;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-container label,
+        .input-container select,
+        .input-container input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .input-container button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="input-container">
+        <label for="year">اختر السنة:</label>
+        <select id="year" required></select>
+
+        <label for="start-category">تاريخ بداية الخدمة:</label>
+        <select id="start-category" required></select>
+
+        <label for="duration">مدة الخدمة:</label>
+        <select id="duration">
+            <option value="1">سنة واحدة</option>
+            <option value="1.5">سنة ونصف</option>
+            <option value="2">سنتين</option>
+            <option value="3">ثلاث سنوات</option>
+        </select>
+
+        <label for="extra-days">هل لديك سنة إضافية؟</label>
+        <input type="checkbox" id="extra-days">
+
+        <button onclick="updateProgress()">احسب</button>
+    </div>
+
+    <div class="circle" id="circle">
+        <div class="inside">
+            <span id="percentage">0%</span>
+        </div>
+    </div>
+
+    <p id="days-left"></p>
+    <p id="message"></p>
+
+    <script>
+        // Populate the year options and start-category options dynamically
+        function populateYearOptions() {
+            const currentYear = new Date().getFullYear();
+            const yearSelect = document.getElementById('year');
+
+            // Add options for the current year and the next year
+            for (let i = currentYear-4; i <= currentYear + 1; i++) {
+                const optionElement = document.createElement('option');
+                optionElement.value = i;
+                optionElement.textContent = i;
+                yearSelect.appendChild(optionElement);
+            }
+        }
+
+        function populateStartCategories() {
+            const startCategorySelect = document.getElementById('start-category');
+            const options = [
+                { label: `دفع 1 (25/2)`, date: `02-25` },
+                { label: `دفع 4 (25/5)`, date: `05-25` },
+                { label: `دفع 7 (25/8)`, date: `08-25` },
+                { label: `دفع 10 (25/11)`, date: `11-25` },
+            ];
+
+            options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option.date;
+                optionElement.textContent = option.label;
+                startCategorySelect.appendChild(optionElement);
+            });
+        }
+
+        populateYearOptions();
+        populateStartCategories();
+
+        function updateProgress() {
+            const year = document.getElementById('year').value;
+            const startCategory = document.getElementById('start-category').value;
+            const startDateInput = `${year}-${startCategory}`;
+            const durationInput = document.getElementById('duration').value;
+            const extraDaysInput = document.getElementById('extra-days').checked;
+
+            const startDate = new Date(startDateInput);
+            let endDate;
+
+            // Calculate end date based on the selected duration
+            switch (durationInput) {
+                case '1':
+                    endDate = new Date(startDate);
+                    endDate.setFullYear(startDate.getFullYear() + 1);
+                    break;
+                case '1.5':
+                    endDate = new Date(startDate);
+                    endDate.setMonth(startDate.getMonth() + 18);
+                    break;
+                case '2':
+                    endDate = new Date(startDate);
+                    endDate.setFullYear(startDate.getFullYear() + 2);
+                    break;
+                case '3':
+                    endDate = new Date(startDate);
+                    endDate.setFullYear(startDate.getFullYear() + 3);
+                    break;
+            }
+
+            // Add extra 45 days if the checkbox is checked
+            if (extraDaysInput) {
+                endDate.setDate(endDate.getDate() + 45);
+            }
+
+            const totalServiceDays = (endDate - startDate) / (1000 * 60 * 60 * 24);
+            const currentDate = new Date();
+            const daysPassed = (currentDate - startDate) / (1000 * 60 * 60 * 24);
+            const percentage = Math.min((daysPassed / totalServiceDays) * 100, 100).toFixed(2);
+            const daysLeft = Math.max(Math.ceil(totalServiceDays - daysPassed), 0);
+
+            // Calculate remaining months
+            const monthsLeft = (endDate.getFullYear() - currentDate.getFullYear()) * 12 + (endDate.getMonth() - currentDate.getMonth());
+
+            // Update the elements based on conditions
+            const daysLeftElement = document.getElementById('days-left');
+            const messageElement = document.getElementById('message');
+
+            // Check if the service has not started yet
+            if (daysPassed < 0) {
+                daysLeftElement.textContent = "يارب تاخد اعفاء";
+                messageElement.textContent = "";
+            } else if (percentage === "100.00" || daysLeft === 0) {
+                // Check if the service is completed
+                daysLeftElement.textContent = "عدت على خير الحمد لله";
+                messageElement.textContent = "";
+            } else {
+            
+                   // Display normal progress information
+                daysLeftElement.textContent = `فاضل ${daysLeft} يوم يا حلبة`;
+                
+                // Display message based on remaining months
+               if (percentage === "100.00" || daysLeft === 0) {
+                  messageElement.textContent = "";
+                }
+                else if (monthsLeft < 3) {
+                    // Display normal progress information
+                daysLeftElement.textContent = `فاضل ${daysLeft} يوم يا رديف`;
+                    messageElement.textContent = "هانت يارديف";
+                } else {
+                    messageElement.textContent = "لسه ايامك حلبة";
+                }
+            }
+
+            // Update the percentage text
+            document.getElementById('percentage').textContent = percentage + '%';
+
+            // Update the circle progress
+            const circleElement = document.getElementById('circle');
+            circleElement.style.background = `conic-gradient(blue 0% ${percentage}%, red ${percentage}% 100%)`;
+        }
+    </script>
+
+</body>
+</html>
