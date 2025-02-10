@@ -1,0 +1,193 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  height: 100dvh;
+  background-color: #f2f1ed;
+}
+
+.circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: conic-gradient(red 0%, red 100%);
+  position: relative;
+  margin: 20px auto;
+}
+
+.circle .inside {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: white;
+  line-height: 120px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#days-left {
+  font-size: xxx-large;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-container label {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+.container select,
+.container input {
+  outline: none;
+  border: none;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid #3180e7;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.container select {
+  width: 100%;
+  padding-inline-start: 0.8rem;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+button {
+  background-color: #de4848;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 0.325em;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-size: 1.25rem;
+  box-shadow: 0 2px 5px #00000038;
+  transition: all 350ms ease-in-out;
+}
+
+button:hover {
+  background-color: #c13030;
+}
+
+button:active {
+  background-color: #de4848;
+}
+
+footer {
+  margin-top: 50px;
+  font-size: 14px;
+  color: gray;
+}
+
+.timer-container {
+  color: #de4848;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.timer-container .segment h2 {
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 0.2rem;
+}
+
+.timer-container .segment .wraper {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.digit-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 5px #00000038;
+  border-radius: 0.1rem;
+  position: relative;
+}
+
+.digit-card .top,
+.digit-card .top-flip {
+  background-color: #f7f7f7;
+  border-top-right-radius: 0.1rem;
+  border-top-left-radius: 0.1rem;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+}
+
+.digit-card .bottom,
+.digit-card .bottom-flip {
+  background-color: white;
+  display: flex;
+  align-items: flex-end;
+  border-bottom-right-radius: 0.1rem;
+  border-bottom-left-radius: 0.1rem;
+}
+
+.digit-card .top,
+.digit-card .bottom,
+.digit-card .top-flip,
+.digit-card .bottom-flip {
+  height: 0.6em;
+  padding: 0.1em 0.25em;
+  line-height: 1;
+  overflow: hidden;
+  position: relative;
+  font-size: 2rem;
+}
+
+.digit-card .top-flip {
+  position: absolute;
+  top: 0;
+  transform-origin: bottom;
+  animation: top-flip 0.22s ease-in;
+}
+
+.digit-card .bottom-flip {
+  position: absolute;
+  bottom: 0;
+  animation: bottom-flip 0.22s 0.22s ease-out;
+  transform-origin: top;
+  transform: rotateX(90deg);
+}
+
+@keyframes top-flip {
+  to {
+    transform: rotateX(90deg);
+  }
+}
+
+@keyframes bottom-flip {
+  100% {
+    transform: rotateX(0);
+  }
+}
