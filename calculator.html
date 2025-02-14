@@ -8,25 +8,35 @@
     <title>العد التنازلي للخدمة العسكرية</title>
   </head>
   <body>
+    <div class="container-logo">
+      <div class="logo"></div>
+      <div class="logo"></div>
+    </div>
     <div class="container">
       <div class="input-container">
         <label for="year">اختر السنة</label>
-        <select id="year" required></select>
+        <div class="select-wraper">
+          <select id="year" required></select>
+        </div>
       </div>
 
       <div class="input-container">
         <label for="start-category">تاريخ بداية الخدمة</label>
-        <select id="start-category" required></select>
+        <div class="select-wraper">
+          <select id="start-category" required></select>
+        </div>
       </div>
 
       <div class="input-container">
         <label for="duration">مدة الخدمة</label>
-        <select id="duration">
-          <option value="1">سنة واحدة</option>
-          <option value="1.5">سنة ونصف</option>
-          <option value="2">سنتين</option>
-          <option value="3">ثلاث سنوات</option>
-        </select>
+        <div class="select-wraper">
+          <select id="duration">
+            <option value="1">سنة واحدة</option>
+            <option value="1.5">سنة ونصف</option>
+            <option value="2">سنتين</option>
+            <option value="3">ثلاث سنوات</option>
+          </select>
+        </div>
       </div>
     </div>
 

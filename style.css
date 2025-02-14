@@ -9,13 +9,44 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
+  padding: 1rem 0.325rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  height: 100dvh;
-  background-color: #f2f1ed;
+  min-height: 100dvh;
+  /* background-color: #f2f1ed; */
+}
+
+.container-logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  overflow: hidden;
+  top: 2rem;
+  inset-inline-end: 2rem;
+}
+
+.logo:first-child {
+  background-image: url("./logo1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.logo:last-child {
+  background-image: url("./logo2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .circle {
@@ -67,10 +98,23 @@ body {
 .container input {
   outline: none;
   border: none;
-  padding: 0.5rem 0.6rem;
+  padding: 0.5rem 0.6rem 0.5rem 1.5rem;
   border: 1px solid #3180e7;
   border-radius: 1rem;
   cursor: pointer;
+}
+
+.select-wraper {
+  position: relative;
+}
+
+.container .select-wraper::after {
+  content: "▼";
+  position: absolute;
+  inset-inline-end: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .container select {
@@ -111,6 +155,7 @@ footer {
 .timer-container {
   color: #de4848;
   display: flex;
+  flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: center;
   gap: 0.6rem;
