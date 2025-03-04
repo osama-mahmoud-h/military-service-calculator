@@ -76,11 +76,13 @@ function updateProgress() {
       endDate.setFullYear(startDate.getFullYear() + 3);
       break;
   }
+  
 
   // Add extra 45 days if the checkbox is checked
   if (extraDaysInput) {
     endDate.setDate(endDate.getDate() + 45);
   }
+  endDate.setDate(endDate.getDate() - 1); //end date is exclusive
 
   const totalServiceDays = (endDate - startDate) / (1000 * 60 * 60 * 24);
   const currentDate = new Date();
