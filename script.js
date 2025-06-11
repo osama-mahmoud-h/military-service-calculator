@@ -135,7 +135,7 @@ function updateProgress() {
   if (daysPassed < 0) {
     daysLeftElement.textContent = "يارب تاخد اعفاء";
     messageElement.textContent = "";
-  } else if (percentage >= "100.00" || daysLeft <= 0) {
+  } else if (percentage === "100.00" || daysLeft === 0) {
     // Check if the service is completed
     daysLeftElement.textContent = "عدت على خير الحمد لله";
     messageElement.textContent = "";
