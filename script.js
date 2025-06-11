@@ -135,7 +135,7 @@ function updateProgress() {
   if (daysPassed < 0) {
     daysLeftElement.textContent = "يارب تاخد اعفاء";
     messageElement.textContent = "";
-  } else if (percentage === "100.00" || daysLeft === 0) {
+  } else if (percentage >= "100.00" || daysLeft <= 0) {
     // Check if the service is completed
     daysLeftElement.textContent = "عدت على خير الحمد لله";
     messageElement.textContent = "";
@@ -146,9 +146,9 @@ function updateProgress() {
     // Display message based on remaining months
     if (percentage === "100.00" || daysLeft === 0) {
       messageElement.textContent = "";
-    } else if (monthsLeft <= 3) {
+    } else if (monthsLeft <= 3 ) {
       // Display normal progress information
-      daysLeftElement.textContent = `فاضل ${daysLeft} يوم يا رديف`;
+      daysLeftElement.textContent = `متبقي ${daysLeft} يوم يا رديف`;
       messageElement.textContent = "هانت يارديف";
     } else {
       messageElement.textContent = "لسه ايامك حلبة";
