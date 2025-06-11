@@ -146,7 +146,7 @@ function updateProgress() {
     // Display message based on remaining months
     if (percentage === "100.00" || daysLeft === 0) {
       messageElement.textContent = "";
-    } else if (monthsLeft < 3) {
+    } else if (monthsLeft <= 3) {
       // Display normal progress information
       daysLeftElement.textContent = `فاضل ${daysLeft} يوم يا رديف`;
       messageElement.textContent = "هانت يارديف";
@@ -320,3 +320,13 @@ function inintializeTimer(
   digitCardsDays[2].firstElementChild.textContent = daysHunderds;
   digitCardsDays[2].lastElementChild.textContent = daysHunderds;
 }
+
+
+// display current date 
+function displayCurrentDate(){
+   const dateDiv = document.querySelector('.cur-date');
+    const today = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }; // Customize as needed
+    dateDiv.textContent = today.toLocaleDateString(undefined, options);
+}
+displayCurrentDate();
